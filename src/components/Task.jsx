@@ -4,12 +4,12 @@ import TaskName from "./TaskName";
 import TaskDate from "./TaskDate";
 import TaskDelete from "./TaskDelete";
 
-function Task() {
+function Task({ taskName, taskDate }) {
   return (
     <div className="Task d-flex align-items-center">
       <TaskChangeStatus />
-      <TaskName />
-      <TaskDate />
+      <TaskName taskName={taskName} />
+      <TaskDate taskDate={taskDate} />
       <TaskDelete />
     </div>
   );

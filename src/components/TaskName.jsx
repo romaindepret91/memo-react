@@ -1,7 +1,7 @@
 import React from "react";
 
-function TaskName() {
-  return <span className="TaskName w-75">Nom de la tâche</span>;
+function TaskName({ taskName }) {
+  return <span className="TaskName w-75">{taskName}</span>;
 }
 
 export default TaskName;
