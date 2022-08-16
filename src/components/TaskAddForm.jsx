@@ -5,7 +5,7 @@ function TaskAddForm({ tasks, addTask }) {
   function handleChange(e) {
     if (e.key === "Enter") {
       const date = new Date();
-      addTask(tasks.length + 1, e.target.value, date.toDateString());
+      addTask(e.target.value, date, false);
       e.target.value = "";
     }
   }

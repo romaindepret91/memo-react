@@ -4,13 +4,19 @@ import TaskName from "./TaskName";
 import TaskDate from "./TaskDate";
 import TaskDelete from "./TaskDelete";
 
-function Task({ taskName, taskDate }) {
+function Task({ task, onChangeTaskStatus, onDeleteTask }) {
   return (
-    <div className="Task d-flex align-items-center">
-      <TaskChangeStatus />
-      <TaskName taskName={taskName} />
-      <TaskDate taskDate={taskDate} />
-      <TaskDelete />
+    <div
+      className={
+        task.taskCompleted
+          ? "Task d-flex align-items-center text-decoration-line-through opacity-50"
+          : "Task d-flex align-items-center"
+      }
+    >
+      <TaskChangeStatus task={task} onChangeTaskStatus={onChangeTaskStatus} />
+      <TaskName task={task} />
+      <TaskDate task={task} />
+      <TaskDelete task={task} onDeleteTask={onDeleteTask} />
     </div>
   );
 }
