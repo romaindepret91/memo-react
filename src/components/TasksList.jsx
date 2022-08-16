@@ -2,49 +2,44 @@ import React from "react";
 import Task from "./Task";
 import { useEffect } from "react";
 import * as tasksActions from "../firebase/tasks";
+
 function TasksList({
-  tasks,
   userId,
-  initDisplayTasks,
+  tasks,
+  setTasks,
   displayMode,
   onChangeTaskStatus,
   onDeleteTask,
 }) {
-  useEffect(
-    () => () =>
-      tasksActions.getAllTasks(userId).then((tasksFS) => {
-        const allTasksCompleted = tasksFS.filter(
-          (task) => task.taskCompleted === true
-        );
-        const allTasksNotCompleted = tasksFS.filter(
-          (task) => task.taskCompleted === false
-        );
-        initDisplayTasks([...allTasksNotCompleted, ...allTasksCompleted]);
-      }),
-    []
-  );
+  useEffect(() => {
+    tasksActions.getAllTasks(userId).then((tasksFS) => {
+      const allTasksCompleted = tasksFS.filter(
+        (task) => task.taskCompleted === true
+      );
+      const allTasksNotCompleted = tasksFS.filter(
+        (task) => task.taskCompleted === false
+      );
+      setTasks([...allTasksNotCompleted, ...allTasksCompleted]);
+    });
+  }, []);
 
-  useEffect(
-    () => () =>
-      tasksActions.getAllTasks(userId).then((tasksFS) => {
-        initDisplayTasks(tasksFS);
-      }),
-    [onDeleteTask]
-  );
+  useEffect(() => {
+    tasksActions.getAllTasks(userId).then((tasksFS) => {
+      setTasks(tasksFS);
+    });
+  }, [onDeleteTask]);
 
-  useEffect(
-    () => () =>
-      tasksActions.getAllTasks(userId).then((tasksFS) => {
-        const allTasksCompleted = tasksFS.filter(
-          (task) => task.taskCompleted === true
-        );
-        const allTasksNotCompleted = tasksFS.filter(
-          (task) => task.taskCompleted === false
-        );
-        initDisplayTasks([...allTasksNotCompleted, ...allTasksCompleted]);
-      }),
-    [onChangeTaskStatus]
-  );
+  useEffect(() => {
+    tasksActions.getAllTasks(userId).then((tasksFS) => {
+      const allTasksCompleted = tasksFS.filter(
+        (task) => task.taskCompleted === true
+      );
+      const allTasksNotCompleted = tasksFS.filter(
+        (task) => task.taskCompleted === false
+      );
+      setTasks([...allTasksNotCompleted, ...allTasksCompleted]);
+    });
+  }, [onChangeTaskStatus]);
 
   return (
     <ul className="list-group mt-4">

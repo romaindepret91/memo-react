@@ -3,24 +3,22 @@ import TaskAddForm from "./TaskAddForm";
 import TasksList from "./TasksList";
 
 function AppMain({
-  tasks,
   userId,
-  initDisplayTasks,
+  tasks,
+  setTasks,
   displayMode,
-  handleDeleteTask,
-  addTask,
+  onAddTask,
   onChangeTaskStatus,
   onDeleteTask,
 }) {
   return (
     <div className="AppMain mt-4 w-100">
-      <TaskAddForm tasks={tasks} addTask={addTask} />
+      <TaskAddForm tasks={tasks} onAddTask={onAddTask} />
       <TasksList
         tasks={tasks}
         userId={userId}
-        initDisplayTasks={initDisplayTasks}
+        setTasks={setTasks}
         displayMode={displayMode}
-        handleDeleteTask={handleDeleteTask}
         onChangeTaskStatus={onChangeTaskStatus}
         onDeleteTask={onDeleteTask}
       />

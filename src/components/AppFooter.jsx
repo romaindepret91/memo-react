@@ -4,24 +4,25 @@ import AllTasksDisplay from "./AllTasksDisplay";
 import AllTasksNumber from "./AllTasksNumber";
 
 function AppFooter({
-  tasks,
   userId,
-  onDisplayTasks,
+  tasks,
+  setTasks,
   displayMode,
-  initDisplayTasks,
+  onChangeDisplayMode,
   onDeleteCompletedTasks,
 }) {
   return (
     <div className="AppFooter d-flex justify-content-between align-items-center mt-4 px-3 w-100">
       <AllTasksDisplay
-        onDisplayTasks={onDisplayTasks}
         displayMode={displayMode}
+        onChangeDisplayMode={onChangeDisplayMode}
       />
       <AllTasksNumber tasks={tasks} displayMode={displayMode} />
       <AllTasksDelete
         userId={userId}
+        setTasks={setTasks}
+        displayMode={displayMode}
         onDeleteCompletedTasks={onDeleteCompletedTasks}
-        initDisplayTasks={initDisplayTasks}
       />
     </div>
   );

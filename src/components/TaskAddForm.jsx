@@ -1,14 +1,15 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
 
-function TaskAddForm({ tasks, addTask }) {
+function TaskAddForm({ onAddTask }) {
   function handleChange(e) {
     if (e.key === "Enter") {
       const date = new Date();
-      addTask(e.target.value, date, false);
+      onAddTask(e.target.value, date, false);
       e.target.value = "";
     }
   }
+
   return (
     <TextField
       margin="dense"

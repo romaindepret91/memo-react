@@ -4,19 +4,24 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import * as tasksActions from "../firebase/tasks";
 
-function AllTasksDelete({ userId, onDeleteCompletedTasks, initDisplayTasks }) {
+function AllTasksDelete({
+  userId,
+  displayMode,
+  setTasks,
+  onDeleteCompletedTasks,
+}) {
   useEffect(
     () => () =>
       tasksActions.getAllTasks(userId).then((tasksFS) => {
-        initDisplayTasks(tasksFS);
+        setTasks(tasksFS);
       }),
     [onDeleteCompletedTasks]
   );
-  return (
+  return displayMode === "all" ? (
     <IconButton onClick={onDeleteCompletedTasks}>
       <DeleteIcon sx={{ color: "red" }} />
     </IconButton>
-  );
+  ) : null;
 }
 
 export default AllTasksDelete;

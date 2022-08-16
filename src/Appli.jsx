@@ -17,10 +17,6 @@ export default function Appli() {
   const [tasks, setTasks] = useState([]);
   const [displayMode, setDisplayMode] = useState("all");
 
-  function handleInitDisplayTasks(tasks) {
-    setTasks(tasks);
-  }
-
   function handleAddTask(taskName, taskDate, taskCompleted) {
     createTask(user.uid, {
       taskName: taskName,
@@ -43,7 +39,7 @@ export default function Appli() {
     deleteTask(user.uid, task.id);
   }
 
-  function handleDisplayTasks(e) {
+  function handleChangeDisplayMode(e) {
     const taskClasses = e.target.className;
     if (taskClasses.includes("allTasks")) setDisplayMode("all");
     else if (taskClasses.includes("tasksCompleted"))
@@ -60,20 +56,20 @@ export default function Appli() {
     <div className="container-fluid d-flex justify-content-center flex-wrap w-50 p-5">
       <AppHeader user={user} />
       <AppMain
-        tasks={tasks}
         userId={user.uid}
-        initDisplayTasks={handleInitDisplayTasks}
+        tasks={tasks}
+        setTasks={setTasks}
         displayMode={displayMode}
-        addTask={handleAddTask}
+        onAddTask={handleAddTask}
         onChangeTaskStatus={handleChangeTaskStatus}
         onDeleteTask={handleDeleteTask}
       />
       <AppFooter
-        tasks={tasks}
         userId={user.uid}
+        tasks={tasks}
+        setTasks={setTasks}
         displayMode={displayMode}
-        initDisplayTasks={handleInitDisplayTasks}
-        onDisplayTasks={handleDisplayTasks}
+        onChangeDisplayMode={handleChangeDisplayMode}
         onDeleteCompletedTasks={handleDeleteCompletedTasks}
       />
     </div>
