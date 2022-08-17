@@ -1,6 +1,6 @@
 import React from "react";
 import HeaderUser from "./HeaderUser";
-import AppLogo from "./AppLogo";
+import AppLogo from "../AppLogo";
 
 function AppHeader({ user }) {
   return (

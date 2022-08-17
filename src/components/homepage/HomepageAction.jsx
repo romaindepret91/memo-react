@@ -1,6 +1,6 @@
 import React from "react";
-import googleLogo from "../images/google-logo.png";
-import { connectUser } from "../firebase/user";
+import googleLogo from "../../images/google-logo.png";
+import { connectUser } from "../../firebase/user";
 
 function HomepageAction() {
   return (
@@ -8,6 +8,7 @@ function HomepageAction() {
       <span
         className="google-connection d-flex align-items-center"
         onClick={connectUser}
+        style={{ cursor: "pointer" }}
       >
         <img className="google-logo" src={googleLogo} alt="Logo Google" />
         <span className="google-text">Continuer avec Google</span>

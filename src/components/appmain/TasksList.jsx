@@ -1,7 +1,7 @@
 import React from "react";
-import Task from "./Task";
+import Task from "./task/Task";
 import { useEffect } from "react";
-import * as tasksActions from "../firebase/tasks";
+import * as tasksActions from "../../firebase/tasks";
 
 function TasksList({
   userId,

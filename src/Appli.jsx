@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { monitorUserConnection } from "./firebase/user";
-import AppFooter from "./components/AppFooter";
-import AppHeader from "./components/AppHeader";
-import AppMain from "./components/AppMain";
-import Homepage from "./components/Homepage";
+import AppFooter from "./components/appfooter/AppFooter";
+import AppHeader from "./components/appheader/AppHeader";
+import AppMain from "./components/appmain/AppMain";
+import Homepage from "./components/homepage/Homepage";
 import {
   createTask,
   deleteTask,
@@ -29,11 +29,9 @@ export default function Appli() {
 
   function handleDeleteCompletedTasks() {
     deleteCompletedTasks(user.uid).then((tasksToDelete) => {
-      const newTasks = tasks.filter((task) => {
-        return tasksToDelete.find(
-          (t) => t.taskCompleted !== task.taskCompleted
-        );
-      });
+      const newTasks = tasks.filter((task) =>
+        tasksToDelete.find((t) => t.taskCompleted !== task.taskCompleted)
+      );
       setTasks(handleSortTasks(newTasks));
     });
   }

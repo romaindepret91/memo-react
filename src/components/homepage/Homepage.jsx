@@ -1,6 +1,6 @@
 import React from "react";
 import HomepageAction from "./HomepageAction";
-import AppLogo from "./AppLogo";
+import AppLogo from "../AppLogo";
 
 function Homepage() {
   return (

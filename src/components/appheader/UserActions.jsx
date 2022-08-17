@@ -1,5 +1,5 @@
 import React from "react";
-import { disconnectUser } from "../firebase/user";
+import { disconnectUser } from "../../firebase/user";
 
 function UserActions() {
   return (
