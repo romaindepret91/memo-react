@@ -8,38 +8,15 @@ function TasksList({
   tasks,
   setTasks,
   displayMode,
+  onSortTasks,
   onChangeTaskStatus,
   onDeleteTask,
 }) {
   useEffect(() => {
     tasksActions.getAllTasks(userId).then((tasksFS) => {
-      const allTasksCompleted = tasksFS.filter(
-        (task) => task.taskCompleted === true
-      );
-      const allTasksNotCompleted = tasksFS.filter(
-        (task) => task.taskCompleted === false
-      );
-      setTasks([...allTasksNotCompleted, ...allTasksCompleted]);
+      setTasks(onSortTasks(tasksFS));
     });
   }, []);
-
-  useEffect(() => {
-    tasksActions.getAllTasks(userId).then((tasksFS) => {
-      setTasks(tasksFS);
-    });
-  }, [onDeleteTask]);
-
-  useEffect(() => {
-    tasksActions.getAllTasks(userId).then((tasksFS) => {
-      const allTasksCompleted = tasksFS.filter(
-        (task) => task.taskCompleted === true
-      );
-      const allTasksNotCompleted = tasksFS.filter(
-        (task) => task.taskCompleted === false
-      );
-      setTasks([...allTasksNotCompleted, ...allTasksCompleted]);
-    });
-  }, [onChangeTaskStatus]);
 
   return (
     <ul className="list-group mt-4">

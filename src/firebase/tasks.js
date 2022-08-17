@@ -33,6 +33,7 @@ export async function deleteTask(userId, taskId) {
   await deleteDoc(ref).catch((error) => {
     console.log(error);
   });
+  return taskId;
 }
 
 export async function upDateTaskStatus(userId, taskId, taskCompleted) {
@@ -43,15 +44,21 @@ export async function upDateTaskStatus(userId, taskId, taskCompleted) {
   await updateDoc(ref, newTaskStatus).catch((error) => {
     console.log(error);
   });
+  return taskId;
 }
 
 export async function deleteCompletedTasks(userId) {
-  const tasksBatch = writeBatch(bdFirestore);
   const tasksToDelete = await getDocs(
     query(
       collection(bdFirestore, "users", userId, "tasks"),
-      where("taskCompleted", true)
+      where("taskCompleted", "==", true)
     )
   );
-  tasksToDelete.docs.forEach((doc) => tasksBatch.delete(doc.ref));
+  // tasksToDelete.docs.forEach(async (d) => {
+  //   const ref = doc(bdFirestore, "users", userId, "tasks", d.id);
+  //   await deleteDoc(ref).catch((error) => {
+  //     console.log(error);
+  //   });
+  // });
+  return tasksToDelete.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 }

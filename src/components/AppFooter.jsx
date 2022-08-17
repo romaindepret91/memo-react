@@ -19,8 +19,6 @@ function AppFooter({
       />
       <AllTasksNumber tasks={tasks} displayMode={displayMode} />
       <AllTasksDelete
-        userId={userId}
-        setTasks={setTasks}
         displayMode={displayMode}
         onDeleteCompletedTasks={onDeleteCompletedTasks}
       />

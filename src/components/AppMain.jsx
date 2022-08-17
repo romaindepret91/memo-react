@@ -8,6 +8,7 @@ function AppMain({
   setTasks,
   displayMode,
   onAddTask,
+  onSortTasks,
   onChangeTaskStatus,
   onDeleteTask,
 }) {
@@ -19,6 +20,7 @@ function AppMain({
         userId={userId}
         setTasks={setTasks}
         displayMode={displayMode}
+        onSortTasks={onSortTasks}
         onChangeTaskStatus={onChangeTaskStatus}
         onDeleteTask={onDeleteTask}
       />

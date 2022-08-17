@@ -23,20 +23,35 @@ export default function Appli() {
       taskDate: taskDate,
       taskCompleted: taskCompleted,
     }).then((doc) => {
-      setTasks([{ id: doc.id, ...doc.data() }, ...tasks]);
+      setTasks(handleSortTasks([{ id: doc.id, ...doc.data() }, ...tasks]));
     });
   }
 
   function handleDeleteCompletedTasks() {
-    deleteCompletedTasks(user.uid);
+    deleteCompletedTasks(user.uid).then((tasksToDelete) => {
+      const newTasks = tasks.filter((task) => {
+        return tasksToDelete.find(
+          (t) => t.taskCompleted !== task.taskCompleted
+        );
+      });
+      setTasks(handleSortTasks(newTasks));
+    });
   }
 
   function handleChangeTaskStatus(task) {
-    upDateTaskStatus(user.uid, task.id, task.taskCompleted);
+    upDateTaskStatus(user.uid, task.id, task.taskCompleted).then((taskId) => {
+      const newTasks = tasks.map((task) => {
+        if (task.id === taskId) task.taskCompleted = !task.taskCompleted;
+        return task;
+      });
+      setTasks(handleSortTasks(newTasks));
+    });
   }
 
   function handleDeleteTask(task) {
-    deleteTask(user.uid, task.id);
+    deleteTask(user.uid, task.id).then((taskId) => {
+      setTasks(handleSortTasks(tasks.filter((task) => task.id !== taskId)));
+    });
   }
 
   function handleChangeDisplayMode(e) {
@@ -46,6 +61,16 @@ export default function Appli() {
       setDisplayMode("completed");
     else if (taskClasses.includes("tasksNotCompleted"))
       setDisplayMode("notCompleted");
+  }
+
+  function handleSortTasks(tasks) {
+    const allTasksCompleted = tasks.filter(
+      (task) => task.taskCompleted === true
+    );
+    const allTasksNotCompleted = tasks.filter(
+      (task) => task.taskCompleted === false
+    );
+    return [...allTasksNotCompleted, ...allTasksCompleted];
   }
 
   useEffect(() => {
@@ -61,6 +86,7 @@ export default function Appli() {
         setTasks={setTasks}
         displayMode={displayMode}
         onAddTask={handleAddTask}
+        onSortTasks={handleSortTasks}
         onChangeTaskStatus={handleChangeTaskStatus}
         onDeleteTask={handleDeleteTask}
       />
