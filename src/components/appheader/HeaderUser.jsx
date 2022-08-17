@@ -2,10 +2,10 @@ import React from "react";
 import UserActions from "./UserActions";
 import UserAvatar from "./UserAvatar";
 
-function HeaderUser({ user }) {
+function HeaderUser() {
   return (
     <div className="HeaderUser d-flex flex-column">
-      <UserAvatar user={user} />
+      <UserAvatar />
       <UserActions />
     </div>
   );

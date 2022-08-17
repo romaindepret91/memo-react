@@ -1,19 +1,22 @@
 import React from "react";
+import { useContext, useEffect } from "react";
 import Task from "./task/Task";
-import { useEffect } from "react";
+import UserContext from "../../context/userContext";
+import TasksContext from "../../context/tasksContext";
 import * as tasksActions from "../../firebase/tasks";
 
 function TasksList({
-  userId,
-  tasks,
   setTasks,
   displayMode,
   onSortTasks,
   onChangeTaskStatus,
   onDeleteTask,
 }) {
+  const user = useContext(UserContext);
+  const tasks = useContext(TasksContext);
+
   useEffect(() => {
-    tasksActions.getAllTasks(userId).then((tasksFS) => {
+    tasksActions.getAllTasks(user.uid).then((tasksFS) => {
       setTasks(onSortTasks(tasksFS));
     });
   }, []);

@@ -4,9 +4,7 @@ import AllTasksDisplay from "./AllTasksDisplay";
 import AllTasksNumber from "./AllTasksNumber";
 
 function AppFooter({
-  userId,
   tasks,
-  setTasks,
   displayMode,
   onChangeDisplayMode,
   onDeleteCompletedTasks,

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { monitorUserConnection } from "./firebase/user";
 import AppFooter from "./components/appfooter/AppFooter";
 import AppHeader from "./components/appheader/AppHeader";
 import AppMain from "./components/appmain/AppMain";
 import Homepage from "./components/homepage/Homepage";
+import { TasksProvider } from "./context/tasksContext";
+import { UserProvider } from "./context/userContext";
+import { monitorUserConnection } from "./firebase/user";
 import {
   createTask,
   deleteTask,
@@ -77,25 +79,26 @@ export default function Appli() {
 
   return user ? (
     <div className="container-fluid d-flex justify-content-center flex-wrap w-50 p-5">
-      <AppHeader user={user} />
-      <AppMain
-        userId={user.uid}
-        tasks={tasks}
-        setTasks={setTasks}
-        displayMode={displayMode}
-        onAddTask={handleAddTask}
-        onSortTasks={handleSortTasks}
-        onChangeTaskStatus={handleChangeTaskStatus}
-        onDeleteTask={handleDeleteTask}
-      />
-      <AppFooter
-        userId={user.uid}
-        tasks={tasks}
-        setTasks={setTasks}
-        displayMode={displayMode}
-        onChangeDisplayMode={handleChangeDisplayMode}
-        onDeleteCompletedTasks={handleDeleteCompletedTasks}
-      />
+      <UserProvider value={user}>
+        <TasksProvider value={tasks}>
+          <AppHeader />
+          <AppMain
+            setTasks={setTasks}
+            displayMode={displayMode}
+            onAddTask={handleAddTask}
+            onSortTasks={handleSortTasks}
+            onChangeTaskStatus={handleChangeTaskStatus}
+            onDeleteTask={handleDeleteTask}
+          />
+          <AppFooter
+            tasks={tasks}
+            setTasks={setTasks}
+            displayMode={displayMode}
+            onChangeDisplayMode={handleChangeDisplayMode}
+            onDeleteCompletedTasks={handleDeleteCompletedTasks}
+          />
+        </TasksProvider>
+      </UserProvider>
     </div>
   ) : (
     <Homepage />
