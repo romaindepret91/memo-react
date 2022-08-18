@@ -1,3 +1,3 @@
-# Titre du site Web ou application
+# Titre du site Web ou application :TP2 - Memo
 
-Court texte présentant votre site Web/application.
+Adresse de hosting Firebase: https://memo-react-app-7c015.web.app/
