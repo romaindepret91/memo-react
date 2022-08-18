@@ -19,7 +19,14 @@ export default function Appli() {
   const [tasks, setTasks] = useState([]);
   const [displayMode, setDisplayMode] = useState("all");
 
+  /**
+   * Gère l'ajout d'une tâche
+   * @param {string} taskName
+   * @param {Date} taskDate
+   * @param {boolean} taskCompleted
+   */
   function handleAddTask(taskName, taskDate, taskCompleted) {
+    // fonction asynchrone dans tasks.js
     createTask(user.uid, {
       taskName: taskName,
       taskDate: taskDate,
@@ -29,7 +36,11 @@ export default function Appli() {
     });
   }
 
+  /**
+   * Gère la suppression des tâches complétées
+   */
   function handleDeleteCompletedTasks() {
+    // fonction asynchrone dans tasks.js
     deleteCompletedTasks(user.uid).then((tasksToDelete) => {
       const newTasks = tasks.filter((task) =>
         tasksToDelete.find((t) => t.taskCompleted !== task.taskCompleted)
@@ -38,7 +49,12 @@ export default function Appli() {
     });
   }
 
+  /**
+   * Gère le changement de status d'une tâche (complétée ou non)
+   * @param {object} task
+   */
   function handleChangeTaskStatus(task) {
+    // fonction asynchrone dans tasks.js
     upDateTaskStatus(user.uid, task.id, task.taskCompleted).then((taskId) => {
       const newTasks = tasks.map((task) => {
         if (task.id === taskId) task.taskCompleted = !task.taskCompleted;
@@ -48,12 +64,21 @@ export default function Appli() {
     });
   }
 
+  /**
+   * Gère la suppression d'une tâche
+   * @param {object} task
+   */
   function handleDeleteTask(task) {
+    // fonction asynchrone dans tasks.js
     deleteTask(user.uid, task.id).then((taskId) => {
       setTasks(handleSortTasks(tasks.filter((task) => task.id !== taskId)));
     });
   }
 
+  /**
+   * Gère le changement de mode d'affichage des tâches
+   * @param {event} e
+   */
   function handleChangeDisplayMode(e) {
     const taskClasses = e.target.className;
     if (taskClasses.includes("allTasks")) setDisplayMode("all");
@@ -63,6 +88,11 @@ export default function Appli() {
       setDisplayMode("notCompleted");
   }
 
+  /**
+   * Gère l'affichage des tâches non complétées avant celles complétées
+   * @param {array} tasks
+   * @returns array
+   */
   function handleSortTasks(tasks) {
     const allTasksCompleted = tasks.filter(
       (task) => task.taskCompleted === true
